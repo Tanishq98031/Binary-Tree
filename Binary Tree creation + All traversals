@@ -1,0 +1,133 @@
+package com.company;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+class MyNode
+{
+    int data;
+    MyNode left;
+    MyNode right;
+
+    MyNode(int data)
+    {
+        this.data = data;
+        this.right = null;
+        this.left = null;
+    }
+}
+
+class MyBinaryTree
+{
+    static int i = -1;
+
+    public MyNode creation(int [] nodes)
+    {
+        i++;
+        if(nodes[i] == -1)
+        {
+            return null;
+        }
+        MyNode node = new MyNode(nodes[i]);
+        node.left = creation(nodes);
+        node.right = creation(nodes);
+        return node;
+    }
+}
+
+
+public class learningBinaryTree {
+    public static void main(String[] args) {
+        int [] nodes = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
+        MyBinaryTree tree = new MyBinaryTree();
+        MyNode root = tree.creation(nodes);
+//        System.out.println(root.data);
+        System.out.println("Preorder Traversal");
+        preorder(root);
+        System.out.println();
+        System.out.println("Inorder Traversal");
+        inorder(root);
+        System.out.println();
+        System.out.println("Postorder Traversal");
+        postorder(root);
+        System.out.println();
+        System.out.println("Levelorder Traversal");
+        levelorder(root);
+    }
+
+    public static void preorder(MyNode root)
+    {
+        if(root == null)
+        {
+            return;
+        }
+
+        System.out.print(root.data + " ");
+        preorder(root.left);
+        preorder(root.right);
+    }
+
+    public static void inorder(MyNode root)
+    {
+        if(root == null)
+        {
+            return;
+        }
+
+        inorder(root.left);
+        System.out.print(root.data + " ");
+        inorder(root.right);
+    }
+
+    public static void postorder(MyNode root)
+    {
+        if(root == null)
+        {
+            return;
+        }
+
+        postorder(root.left);
+        postorder(root.right);
+        System.out.print(root.data + " ");
+    }
+
+    public static void levelorder(MyNode root)
+    {
+        Queue<MyNode> q = new LinkedList<>();
+
+        q.add(root);
+        q.add(null);
+
+        while(!q.isEmpty())
+        {
+            MyNode curr = q.remove();
+
+            if(curr == null)
+            {
+                System.out.println();
+
+                if(q.isEmpty())
+                {
+                    break;
+                }
+                else
+                {
+                    q.add(null);
+                }
+            }
+            else
+            {
+                System.out.print(curr.data + " ");
+
+                if(curr.left != null)
+                {
+                    q.add(curr.left);
+                }
+                if(curr.right != null)
+                {
+                    q.add(curr.right);
+                }
+            }
+        }
+    }
+}
