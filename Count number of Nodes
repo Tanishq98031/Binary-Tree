@@ -1,0 +1,14 @@
+public static int getCount(MyNode root)
+    {
+        if(root == null)
+        {
+            return 0;
+        }
+
+        int leftnodes = getCount(root.left);
+        int rightnodes = getCount(root.right);
+
+        int ans = leftnodes + rightnodes + 1;
+
+        return ans;
+    }
