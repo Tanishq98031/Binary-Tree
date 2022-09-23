@@ -1,0 +1,38 @@
+#Approach 1: time complexity O(n2)
+
+class Solution {
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node root) {
+        // Your code here
+        if(root == null)
+        {
+            return 0;
+        }
+        
+        int left = diameter(root.left);
+        int right = diameter(root.right);
+        int full = height(root.left) + height(root.right) + 1;
+        
+        int max = Math.max(left, Math.max(right, full));
+        return max;
+    }
+    
+    public static int height(Node root)
+    {
+        if(root == null)
+        {
+            return 0;
+        }
+        
+        int left = height(root.left);
+        int right = height(root.right);
+        
+        int max = Math.max(left, right);
+        max += 1;
+        
+        return max;
+    }
+}
+
+#Approach 2: Using pair, time complexity O(n)
+
