@@ -1,0 +1,107 @@
+#Approach 1: Brute force approach, Time complexity O(n2);
+
+class Tree
+{
+    int height(Node root)
+    {
+        if(root == null)
+        {
+            return 0;
+        }
+        
+        int left = height(root.left);
+        int right = height(root.right);
+        
+        int ans = Math.max(left, right) + 1;
+        return ans;
+    }
+    
+    boolean isBalanced(Node root)
+    {
+        if(root == null)
+        {
+            return true;
+        }
+        
+        boolean left = isBalanced(root.left);
+        boolean right = isBalanced(root.right);
+        
+        int dif = Math.abs(height(root.left) - height(root.right));
+        boolean ans = false;
+        if(dif <= 1)
+        {
+            ans = true;
+        }
+        
+        if(left && right && ans)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+
+
+#Approach 2: Time complexity O(n):
+class Tree
+{
+    boolean isBalanced(Node root)
+    {
+        treeinfo ans = solve(root);
+        return ans.bool;
+    }
+    
+    treeinfo solve(Node root)
+    {
+        if(root == null)
+        {
+            return new treeinfo(true, 0);
+        }
+        
+        treeinfo left = solve(root.left);
+        treeinfo right = solve(root.right);
+        
+        boolean l = left.bool;
+        boolean r = right.bool;
+        
+        int lh = left.height;
+        int rh = right.height;
+        
+        int myHeight = Math.max(left.height, right.height) + 1;
+        
+        boolean ans = false;
+        
+        if(Math.abs(lh - rh) <= 1)
+        {
+            ans = true;
+        }
+        
+        boolean rans = false;
+        if(l && r && ans)
+        {
+            rans = true;
+        }
+        
+        treeinfo a = new treeinfo(rans, myHeight);
+        
+        return a;
+    }
+}
+
+class treeinfo
+{
+    int height;
+    boolean bool;
+    
+    treeinfo(boolean bool, int height)
+    {
+        this.height = height;
+        this.bool = bool;
+    }
+}
+
+
+
