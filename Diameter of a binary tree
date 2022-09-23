@@ -36,3 +36,46 @@ class Solution {
 
 #Approach 2: Using pair, time complexity O(n)
 
+class Solution {
+    // Function to return the diameter of a Binary Tree.
+    int diameter(Node root) {
+        treeinfo ans = fastDiameter(root);
+        int a = ans.diameter;
+        return a;
+    }
+    
+    public static treeinfo fastDiameter(Node root)
+    {
+        if(root == null)
+        {
+            return new treeinfo(0, 0);
+        }
+        
+        treeinfo left = fastDiameter(root.left);
+        treeinfo right = fastDiameter(root.right);
+        
+        
+        int l = left.diameter;
+        int r = right.diameter;
+        int full = left.height + right.height + 1;
+        
+        int f = Math.max(l, Math.max(r, full));
+        int s =  Math.max(left.height, right.height) + 1;
+        treeinfo ans = new treeinfo(f,s);
+        
+        return ans;
+    }
+}
+
+public class treeinfo
+{
+    int height;
+    int diameter;
+    
+    treeinfo(int diameter, int height)
+    {
+        this.height = height;
+        this.diameter = diameter;
+    }
+}
+
