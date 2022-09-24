@@ -1,0 +1,56 @@
+class Solution
+{
+	boolean isSumTree(Node root)
+	{
+	    treeinfo ans = isSumTreeFast(root);
+	    return ans.bool;
+	}
+	
+	treeinfo isSumTreeFast(Node root)
+	{
+	    if(root == null)
+	    {
+	        return new treeinfo(true, 0);
+	    }
+	    
+	    if(root.left == null && root.right == null)
+	    {
+	        return new treeinfo(true, root.data);
+	    }
+	    
+	    treeinfo left = isSumTreeFast(root.left);
+	    treeinfo right = isSumTreeFast(root.right);
+	    
+	    boolean l = left.bool;
+	    boolean r = right.bool;
+	    
+	    boolean cond = false;
+	    
+	    int sum = left.sum + right.sum;
+	    if(root.data == sum)
+	    {
+	        cond = true;
+	    }
+	    
+	    if(l && r && cond)
+	    {
+	        return new treeinfo(true, 2*sum);
+	    }
+	    else
+	    {
+	        return new treeinfo(false, 2*sum);
+	    }
+	}
+}
+
+class treeinfo
+{
+    int sum;
+    boolean bool;
+    
+    treeinfo(boolean bool, int sum)
+    {
+        this.bool = bool;
+        this.sum = sum;
+    }
+}
