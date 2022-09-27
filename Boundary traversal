@@ -1,0 +1,76 @@
+class Solution
+{
+	ArrayList <Integer> boundary(Node node)
+	{
+	    ArrayList<Integer> ans = new ArrayList<>();
+	    if(node == null)
+	    {
+	        return ans;
+	    }
+	    
+	    ans.add(node.data);
+	    
+	    leftprint(ans, node.left);
+	    
+	    leafs(ans, node.left);
+	    leafs(ans, node.right);
+	    
+	    rightprint(ans, node.right);
+	    
+	    return ans;
+	}
+	
+	public static void leftprint(ArrayList<Integer> ans, Node root)
+	{
+	    if(root == null || root.right == null && root.left == null)
+	    {
+	        return;
+	    }
+
+	    ans.add(root.data);
+	    
+	    if(root.left == null)
+	    {
+	        leftprint(ans, root.right);
+	    }
+	    else
+	    {
+	        leftprint(ans, root.left);
+	    }
+	}
+	
+	public static void leafs(ArrayList<Integer> ans, Node root)
+	{
+	    if(root == null)
+	    {
+	        return;
+	    }
+	    if(root.left == null && root.right == null)
+	    {
+	        ans.add(root.data);
+	        return;
+	    }
+	    
+	    leafs(ans, root.left);
+	    leafs(ans,root.right);
+	}
+	
+	public static void rightprint(ArrayList<Integer> ans, Node root)
+	{
+	    if(root == null || root.left == null && root.right == null)
+	    {
+	        return;
+	    }
+	    
+	    if(root.right == null)
+	    {
+	        rightprint(ans, root.left);
+	    }
+	    else
+	    {
+	        rightprint(ans, root.right);
+	    }
+	    
+	    ans.add(root.data);
+	}
+}
