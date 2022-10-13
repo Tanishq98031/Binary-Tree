@@ -1,0 +1,25 @@
+class Solution {
+    void mirror(Node node) {
+        
+        solve(node);
+    }
+    
+    public static void solve(Node root)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        if(root.right == null && root.left == null)
+        {
+            return;
+        }
+        
+        solve(root.left);
+        solve(root.right);
+        
+        Node temp = root.right;
+        root.right = root.left;
+        root.left = temp;
+    }
+}
