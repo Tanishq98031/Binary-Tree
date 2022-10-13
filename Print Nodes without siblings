@@ -1,0 +1,39 @@
+public class Solution {
+	public static ArrayList<Integer> nodesWithoutSiblings(BinaryTreeNode<Integer> root) {\
+  
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        solve(root, ans);
+        
+        if(ans.isEmpty())
+        {
+            ans.add(-1);
+            return ans;
+        }
+        
+        return ans;
+	}
+    public static void solve(BinaryTreeNode<Integer> root, ArrayList<Integer> ans)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        
+        if(root.left == null && root.right != null)
+        {
+            ans.add(root.right.data);
+            solve(root.right, ans);
+        }
+        else if(root.right == null && root.left != null)
+        {
+            ans.add(root.left.data);
+            solve(root.left, ans);
+        }
+        else 
+        {
+            solve(root.left, ans);
+            solve(root.right, ans);
+        }
+    }
+}
